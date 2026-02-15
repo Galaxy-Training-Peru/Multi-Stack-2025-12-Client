@@ -6,6 +6,7 @@ APP_NAME="ng-library-client"
 ORG="Multi-Stack-2025-12"
 GITHUB_TOKEN=""
 
+
 export NG_CLI_ANALYTICS=false
 
 # Check if project already exists
@@ -115,3 +116,17 @@ else
 fi
 
 echo "Done"
+
+# Step 4: Generate library projects (future microfrontends)
+LIBRARIES=("library-authors" "library-books" "library-catalog")
+
+for LIB in "${LIBRARIES[@]}"; do
+  if [ -d "projects/$LIB" ]; then
+    echo "Library '$LIB' already exists, skipping"
+  else
+    echo "Generating library: $LIB"
+    npx -p @angular/cli ng generate library $LIB \
+      --prefix="lib" \
+      --standalone
+  fi
+done
