@@ -44,3 +44,12 @@ else
     echo "Project created: https://github.com/$ORG/$APP_NAME"
   fi
 fi
+
+# Step 2: Install Angular Material with custom colors
+# Note: Color palettes are generated from primary: #1C2C44, secondary: #5A81BA, tertiary: #8BA7CF, neutral: #DCE4F0
+if grep -q "@angular/material" package.json 2>/dev/null; then
+  echo "Angular Material already installed"
+else
+  echo "Installing Angular Material"
+  npx -p @angular/cli ng add @angular/material
+fi
