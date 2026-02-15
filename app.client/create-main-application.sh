@@ -4,7 +4,7 @@
 
 APP_NAME="ng-library-client"
 ORG="Multi-Stack-2025-12"
-GITHUB_TOKEN="<YOUR_GITHUB_TOKEN>"
+GITHUB_TOKEN=""
 
 export NG_CLI_ANALYTICS=false
 
@@ -31,4 +31,16 @@ else
   
   git add .
   git commit -m "feat: initial Angular project setup" > /dev/null 2>&1
+fi
+
+# Check if remote exists
+if git remote get-url origin > /dev/null 2>&1; then
+  echo "GitHub repository already configured"
+else
+  export GITHUB_TOKEN="$GITHUB_TOKEN"
+  gh repo create "$ORG/$APP_NAME" --public --source=. --remote=origin --push > /dev/null 2>&1
+  
+  if [ $? -eq 0 ]; then
+    echo "Project created: https://github.com/$ORG/$APP_NAME"
+  fi
 fi
